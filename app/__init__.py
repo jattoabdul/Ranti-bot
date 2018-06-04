@@ -45,14 +45,11 @@ def create_app(config_name):
 			response_body = actions.help()
 
 		if command_text[0] in ['my-task', 'my-tasks']:
-			response_body = actions.my_tasks()
+			actions.my_tasks()
 
 		if command_text[0] in ['show-task', 'show-tasks']:
-			# if match('', command_text[1]):
-			date = command_text[1].replace('-', ' ')
-			response_body = actions.show_tasks(date)
-			# else:
-			# 	response_body = {'text': 'Invalid Date/Day Param - `/ranti help` for available commands'}
+			date = command_text[1]
+			actions.show_tasks(date)
 
 		response = jsonify(response_body)
 		response.status_code = 200
