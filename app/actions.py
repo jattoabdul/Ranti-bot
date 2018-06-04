@@ -27,4 +27,9 @@ class Actions:
 		pass
 
 	def help(self):
-		pass
+		return {
+			'text': 'Available Commands: \n `/ranti my-task e.g. /ranti my-task` \n To get task assigned to you.\n'
+					' \n `/ranti show-task [date] e.g. /ranti show-task 5th-june-2018` \n Show all tasks for a particular date \n'
+					'\n `/ranti show-task [today] e.g. /ranti show-task today` \n Show all tasks for today \n'
+					'\n `/ranti show-task [tomorrow] e.g. /ranti show-task tomorrow` \n Show all tasks for tomorrow \n'
+					'\n `/ranti help` \n This help information \n \n Ranti Ver: 1.0'}

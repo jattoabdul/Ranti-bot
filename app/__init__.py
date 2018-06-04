@@ -39,11 +39,10 @@ def create_app(config_name):
 		actions = Actions(slackhelper, slack_user_info)
 
 		if command_text[0] not in allowed_commands:
-			response_body = {'text': 'Invaid Command Sent - `/ranti help` for available commands'}
+			response_body = {'text': 'Invalid Command Sent - `/ranti help` for available commands'}
 
 		if command_text[0] == 'help':
 			response_body = actions.help()
-			pass
 
 		if command_text[0] in ['my-task', 'my-tasks']:
 			response_body = actions.my_tasks()
@@ -51,8 +50,6 @@ def create_app(config_name):
 		if command_text[0] in ['show-task', 'show-tasks']:
 			date = command_text[1]
 			response_body = actions.show_tasks(date)
-
-		# response_body = {'text': 'Reached Bot'}
 
 		response = jsonify(response_body)
 		response.status_code = 200
