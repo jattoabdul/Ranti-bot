@@ -76,9 +76,7 @@ class Actions:
 				else:
 					sleep_time = 24 - current_hour + 8 - (current_minute / 60)
 
-			# time.sleep(sleep_time * 3600)
-			time.sleep(60)
-			print('Sent Notification to Slack')
+			time.sleep(sleep_time * 3600)
 			for index, row in enumerate(self.sheet):
 				check_date = datetime.strptime(self._num_suffix(row['Next Check-In']), '%d %B %Y').date()
 				todays_date = datetime.now().date()
@@ -94,4 +92,3 @@ class Actions:
 						str(index + 1), row['Next Check-In'], row['Name'],
 						row['Most Recent Learning Experience you\'d like to write about'])
 					self.slackhelper.post_message_to_channel(text_detail)
-			# return 'sent notification to slack'
