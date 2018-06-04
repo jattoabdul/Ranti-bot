@@ -14,6 +14,7 @@ class SlackHelper:
 			"chat.postMessage",
 			channel=recipient,
 			text=msg,
+			parse='full',
 			as_user=True
 		)
 
