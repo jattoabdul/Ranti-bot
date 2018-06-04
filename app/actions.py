@@ -21,7 +21,6 @@ class Actions:
 				'Whats the status of the article?\n'
 				'PS: Please reply to this thread, the managers will review and reply you ASAP').format(str(index + 1), row['Next Check-In'], row['Name'], row['Most Recent Learning Experience you\'d like to write about'])
 			self.slackhelper.post_message(text_detail, recipient)
-		return {'text': 'Operation Successful'}
 
 	def show_tasks(self, date=None):
 		recipient = self.user_info['user']['id']
@@ -34,7 +33,6 @@ class Actions:
 				'Whats the status of the article?\n'
 				'PS: Please reply to this thread, the managers will review and reply you ASAP').format(str(index + 1), row['Next Check-In'], row['Name'], row['Most Recent Learning Experience you\'d like to write about'])
 			self.slackhelper.post_message(text_detail, recipient)
-		return {'text': 'Operation Successful'}
 
 	def help(self):
 		return {
