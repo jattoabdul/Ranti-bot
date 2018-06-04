@@ -14,8 +14,17 @@ class SlackHelper:
 			"chat.postMessage",
 			channel=recipient,
 			text=msg,
-			parse='full',
 			as_user=True
+		)
+
+	def post_message_to_channel(self, msg):
+		return self.slack_client.api_call(
+			"chat.postMessage",
+			channel=self.slack_channel,
+			text=msg,
+			username='Ranti',
+			parse='full',
+			as_user=False
 		)
 
 	def file_upload(self, file_content, file_name, file_type, title=None, ):

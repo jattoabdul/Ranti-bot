@@ -42,7 +42,15 @@ class Actions:
 		# 	response_body = {'text': 'Invalid Date/Day Param - `/ranti help` for available commands'}
 		return None
 
-	def num_suffix(self, check_in_date):
+	def help(self):
+		return {
+			'text': 'Available Commands: \n `/ranti my-task e.g. /ranti my-task` \n To get task assigned to you.\n'
+					' \n `/ranti show-task [date] e.g. /ranti show-task 5th-june-2018` \n Show all tasks for a particular date \n'
+					'\n `/ranti show-task [today] e.g. /ranti show-task today` \n Show all tasks for today \n'
+					'\n `/ranti show-task [tomorrow] e.g. /ranti show-task tomorrow` \n Show all tasks for tomorrow \n'
+					'\n `/ranti help` \n This help information \n \n Ranti Ver: 1.0'}
+
+	def _num_suffix(self, check_in_date):
 		"""
 		Strip the date suffix and return the date
 		Before comparing the date
@@ -54,7 +62,6 @@ class Actions:
 
 	def notify_channel(self):
 		while True:
-			recipient = get_env('SLACK_CHANNEL')
 			curent_time = datetime.now()
 			current_hour = curent_time.hour
 			current_minute = curent_time.minute
@@ -71,8 +78,9 @@ class Actions:
 
 			# time.sleep(sleep_time * 3600)
 			time.sleep(60)
+			print('Sent Notification to Slack')
 			for index, row in enumerate(self.sheet):
-				check_date = datetime.strptime(self.num_suffix(row['Next Check-In']), '%d %B %Y').date()
+				check_date = datetime.strptime(self._num_suffix(row['Next Check-In']), '%d %B %Y').date()
 				todays_date = datetime.now().date()
 				send_notif_date = check_date - todays_date
 
@@ -85,13 +93,5 @@ class Actions:
 						'PS: Please reply to this thread, the managers will review and reply you ASAP').format(
 						str(index + 1), row['Next Check-In'], row['Name'],
 						row['Most Recent Learning Experience you\'d like to write about'])
-					self.slackhelper.post_message(text_detail, recipient)
-			# return None
-
-	def help(self):
-		return {
-			'text': 'Available Commands: \n `/ranti my-task e.g. /ranti my-task` \n To get task assigned to you.\n'
-					' \n `/ranti show-task [date] e.g. /ranti show-task 5th-june-2018` \n Show all tasks for a particular date \n'
-					'\n `/ranti show-task [today] e.g. /ranti show-task today` \n Show all tasks for today \n'
-					'\n `/ranti show-task [tomorrow] e.g. /ranti show-task tomorrow` \n Show all tasks for tomorrow \n'
-					'\n `/ranti help` \n This help information \n \n Ranti Ver: 1.0'}
+					self.slackhelper.post_message_to_channel(text_detail)
+			# return 'sent notification to slack'
