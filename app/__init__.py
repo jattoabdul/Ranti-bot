@@ -42,7 +42,7 @@ def create_app(config_name):
 			response_body = {'text': 'Invalid Command Sent - `/ranti help` for available commands'}
 
 		if command_text[0] == 'help':
-			response_body = actions.help()
+			actions.help()
 
 		if command_text[0] in ['my-task', 'my-tasks']:
 			actions.my_tasks()
