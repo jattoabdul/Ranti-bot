@@ -20,8 +20,8 @@ class Actions:
 				'`{}`.\n\n'
 				'Whats the status of the article?\n'
 				'PS: Please reply to this thread, the managers will review and reply you ASAP').format(str(index + 1), row['Next Check-In'], row['Name'], row['Most Recent Learning Experience you\'d like to write about'])
-			self.slackhelper.post_message(text_detail, recipient)
-		return 'message sent'
+			# self.slackhelper.post_message(text_detail, recipient)
+		return self.slackhelper.post_message(text_detail, recipient)
 
 	def show_tasks(self, date=None):
 		pass
