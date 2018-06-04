@@ -40,25 +40,19 @@ def create_app(config_name):
 
 		if command_text[0] not in allowed_commands:
 			response_body = {'text': 'Invalid Command Sent - `/ranti help` for available commands'}
-			response = jsonify(response_body)
-			response.status_code = 200
-			return response
 
 		if command_text[0] == 'help':
 			response_body = actions.help()
-			response = jsonify(response_body)
-			response.status_code = 200
-			return response
 
 		if command_text[0] in ['my-task', 'my-tasks']:
-			actions.my_tasks()
+			response_body = actions.my_tasks()
 
 		if command_text[0] in ['show-task', 'show-tasks']:
 			date = command_text[1]
-			actions.show_tasks(date)
+			response_body = actions.show_tasks(date)
 
-		# response = jsonify(response_body)
-		# response.status_code = 200
-		# return response
+		response = jsonify(response_body)
+		response.status_code = 200
+		return response
 
 	return app
