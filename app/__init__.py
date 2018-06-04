@@ -3,7 +3,7 @@ from config.env import app_env
 from app.utils.slackhelper import SlackHelper
 from flask import request, jsonify
 from app.actions import Actions
-
+from re import match
 
 '''
 /ranti show-task today
@@ -48,8 +48,11 @@ def create_app(config_name):
 			response_body = actions.my_tasks()
 
 		if command_text[0] in ['show-task', 'show-tasks']:
-			date = command_text[1]
+			# if match('', command_text[1]):
+			date = command_text[1].replace('-', ' ')
 			response_body = actions.show_tasks(date)
+			# else:
+			# 	response_body = {'text': 'Invalid Date/Day Param - `/ranti help` for available commands'}
 
 		response = jsonify(response_body)
 		response.status_code = 200

@@ -24,7 +24,17 @@ class Actions:
 		return {'text': 'Operation Successful'}
 
 	def show_tasks(self, date=None):
-		pass
+		recipient = self.user_info['user']['id']
+		task_cells = list(filter(lambda x: x['Next Check-In'] == date, self.sheet))
+		for index, row in enumerate(task_cells):
+			text_detail = (
+				'*Task #{} for {}:* \n\n'
+				'*Hey {},* Today is the check-in day for your writeup titled\n'
+				'`{}`.\n\n'
+				'Whats the status of the article?\n'
+				'PS: Please reply to this thread, the managers will review and reply you ASAP').format(str(index + 1), row['Next Check-In'], row['Name'], row['Most Recent Learning Experience you\'d like to write about'])
+			self.slackhelper.post_message(text_detail, recipient)
+		return {'text': 'Operation Successful'}
 
 	def help(self):
 		return {
