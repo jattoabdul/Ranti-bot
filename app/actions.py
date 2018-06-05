@@ -26,26 +26,26 @@ class Actions:
 		return None
 
 	def show_tasks(self, date=None):
-		# if date in ['today', 'tomorrow']:
-		# 	response_body = {'text': 'today or tomorrow'}
+		if date in ['today', 'tomorrow']:
+			return {'text': 'sending task for {}'.format(date)}
 		# elif re.match('', date) == False:
 		# 	response_body = {'text': 'Invalid Date/Day Param - `/ranti help` for available commands'}
-		# else:
-		recipient = self.user_info['user']['id']
-		date_param = date.replace('-', ' ')
-		task_cells = list(filter(lambda x: x['Next Check-In'] == date_param, self.sheet))
-		if task_cells:
-			for index, row in enumerate(task_cells):
-				text_detail = (
-					'*Task #{} for {}:* \n\n'
-					'*Hey {},* Today is the check-in day for your writeup titled\n'
-					'`{}`.\n\n'
-					'Whats the status of the article?\n'
-					'PS: Please reply to this thread, the managers will review and reply you ASAP').format(str(index + 1), row['Next Check-In'], row['Name'], row['Most Recent Learning Experience you\'d like to write about'])
-				self.slackhelper.post_message(text_detail, recipient)
-			return None
 		else:
-			return {'text': 'No task assigned to be checked in on this date, try another date'}
+			recipient = self.user_info['user']['id']
+			date_param = date.replace('-', ' ')
+			task_cells = list(filter(lambda x: x['Next Check-In'] == date_param, self.sheet))
+			if task_cells:
+				for index, row in enumerate(task_cells):
+					text_detail = (
+						'*Task #{} for {}:* \n\n'
+						'*Hey {},* Today is the check-in day for your writeup titled\n'
+						'`{}`.\n\n'
+						'Whats the status of the article?\n'
+						'PS: Please reply to this thread, the managers will review and reply you ASAP').format(str(index + 1), row['Next Check-In'], row['Name'], row['Most Recent Learning Experience you\'d like to write about'])
+					self.slackhelper.post_message(text_detail, recipient)
+				return None
+			else:
+				return {'text': 'No task assigned to be checked in on this date, try another date'}
 
 	def help(self):
 		return {
